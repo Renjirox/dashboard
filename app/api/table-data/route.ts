@@ -11,6 +11,7 @@ type TableData = {
 export async function GET() {
     const records: TableData[] = [];
 
+    // Filling the JSON file with data that includes IDs, & randomized titles, categories, dates and owners
     for (let i = 1; i <= 20; i++) {
         records.push({
             id: i,

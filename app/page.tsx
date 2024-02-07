@@ -33,6 +33,7 @@ export default function Home() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const magnifyingGlassRef = useRef<HTMLButtonElement>(null);
 
+  // Fetching data for graph
   useEffect(() => {
     async function fetchData() {
       try {
@@ -50,6 +51,7 @@ export default function Home() {
     fetchData();
   }, []);
 
+  // Function to format the date
   const formatDate = (date: Date): string => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "long" });
@@ -57,6 +59,7 @@ export default function Home() {
     return `${day} ${month} ${year}`;
   };
 
+  // Debouncing (delaying) updates
   function useDebounce(value: string, delay: number): string {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -75,6 +78,7 @@ export default function Home() {
 
   const debouncedSearchInput = useDebounce(searchInput, 300);
 
+  // Function for filtering the widgets
   const shouldShowWidget = (widgetTitle: string): boolean => {
     if (!debouncedSearchInput.trim()) return true;
 
@@ -88,6 +92,7 @@ export default function Home() {
     );
   };
 
+  // Focusing the search input field when opening it
   useEffect(() => {
     if (showSearch === true) {
       searchInputRef.current?.focus();
@@ -105,6 +110,7 @@ export default function Home() {
 
   return (
     <main className="m-12 grid grid-cols-12 gap-4 text-gray-800">
+      {/* Top bar */}
       <div className="bg-white rounded-xl shadow-sm p-4 grid grid-cols-3 col-span-12">
         <div className="flex gap-4 justify-start capitalize">
           {formatDate(currentDateTime)}
@@ -113,7 +119,7 @@ export default function Home() {
         <div className="flex justify-center">
           Welcome back&nbsp;<span className="font-bold">{user}</span>!
         </div>
-
+        {/* Search input field */}
         <div className="flex justify-end gap-4">
           <input
             ref={searchInputRef}
@@ -141,6 +147,7 @@ export default function Home() {
           </button>
         </div>
       </div>
+      {/* Card widgets mapping */}
       {cards.map((card, index) => (
         <NumberWidget
           key={index}
@@ -152,6 +159,7 @@ export default function Home() {
           }`}
         />
       ))}
+      {/* Graph widget - two different renders for different screen sizes */}
       <div
         className={`col-span-12 bg-gradient-to-br from-slate-500/25 via-slate-500/50 to-slate-500/25 shadow-slate-500/25 shadow-md rounded-xl p-4 flex flex-col items-center space-y-8 text-gray-800 ${
           shouldShowWidget("Orders") ? "" : "hidden"

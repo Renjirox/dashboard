@@ -5,10 +5,12 @@ type GraphData = {
   number: number;
 };
 
+// GET function for the API
 export async function GET() {
   const data: GraphData[] = [];
   let previousNumbers = 500 + Math.floor(Math.random() * 4500);
 
+  // Filling the JSON file with data for the graph - days & values that can't be lower than 750
   for (let i = 6; i >= 0; i--) {
     const day = new Date();
     day.setDate(day.getDate() - i);

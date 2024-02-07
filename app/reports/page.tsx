@@ -15,6 +15,7 @@ type TableData = {
 export default function Reports() {
   const [tableData, setTableData] = useState<TableData[]>();
 
+  // Fetching data for the table
   useEffect(() => {
     async function fetchData() {
       try {
@@ -32,6 +33,7 @@ export default function Reports() {
     fetchData();
   }, []);
 
+  // Formatting the date
   const formatDate = (isoDateString: string): string => {
     const dateObject = new Date(isoDateString);
     const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -43,6 +45,7 @@ export default function Reports() {
     return formattedDate.replace(/\//g, "-");
   };
 
+  // Deleting the records from table
   const handleDelete = (id: number) => {
     setTableData((currentData) =>
       currentData?.map((data) =>
@@ -62,6 +65,7 @@ export default function Reports() {
       </div>
       <div className="mt-12">
         <div className="bg-white shadow-md rounded-xl p-4">
+          {/* Table headers */}
           <div className="grid grid-cols-12 gap-4 text-center text-lg font-medium m-2 p-4 border-b border-gray-200">
             <span className="col-span-1">ID</span>
             <span className="col-span-3">Title</span>
@@ -70,6 +74,7 @@ export default function Reports() {
             <span className="col-span-3">Owner</span>
             <span className="col-span-1">Action</span>
           </div>
+          {/* Mapping the table data */}
           {tableData ? (
             tableData?.map(
               (data) =>
@@ -93,6 +98,7 @@ export default function Reports() {
                 )
             )
           ) : (
+            /* Placeholder when data not present */
             <div className="space-y-8 mt-4">
               <div className="bg-gray-200/75 w-full h-8 rounded-xl shadow-sm" />
               <div className="bg-gray-200/75 w-full h-8 rounded-xl shadow-sm" />

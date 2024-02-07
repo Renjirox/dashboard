@@ -8,6 +8,7 @@ type numberData = {
 export async function GET() {
   const data: numberData[] = [];
 
+  // Getting yesterday's date and the number for that day
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const yesterdayNumbers = Math.floor(Math.random() * 5000);
@@ -17,6 +18,7 @@ export async function GET() {
     number: yesterdayNumbers,
   });
 
+    // Getting today's date and the number for that day
   const today = new Date();
   const todayNumbers = yesterdayNumbers + Math.floor(Math.random() * 5000) + 1;
 
